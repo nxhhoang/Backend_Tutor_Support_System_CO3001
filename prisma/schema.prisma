@@ -1,0 +1,106 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model LearningPreference {
+  id    String @id @default(cuid())
+  name  String
+  level Int
+}
+
+model LearningGoal {
+  id      String @id @default(cuid())
+  content String
+}
+
+model Recommendation {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  relatedSkill String
+  type        String
+  tutor       String?
+  docLink     String?
+  feedback    String?
+}
+
+model LearningProgress {
+  id       String @id @default(cuid())
+  skill    String
+  progress Int
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  title       String
+  size        String
+  uploadedAt  DateTime
+  author      String
+  subject     String
+  topic       String
+  keywords    Json? 
+}
+
+model Mentee {
+  id                Int              @id @default(autoincrement())
+  name              String
+  email             String
+  major             String
+  year              Int
+  className         String
+  avatar            String
+  phone             String
+  progress          String
+
+  nextSession       Json?  
+  previousFeedbacks MenteeFeedback[]
+  notes             MenteeNote[]
+}
+
+model MenteeNote {
+  id        Int      @id @default(autoincrement())
+  tutorId   Int
+  menteeId  Int
+  content   String
+  createdAt DateTime @default(now())
+
+  mentee Mentee @relation(fields: [menteeId], references: [id])
+}
+
+model MenteeFeedback {
+  id         Int      @id @default(autoincrement())
+  studentId  Int
+  sessionId  Int
+  rating     Json     
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  mentee Mentee @relation(fields: [studentId], references: [id])
+}
+
+model Profile {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  role         String   // 'student' hoặc 'tutor'
+  faculty      String?
+  phone        String?
+  
+  major        String?
+  class        String?
+  supportNeeds String?
+  
+  expertise    String?
+  rating       Float?   @default(0)
+  
+  skills       Json?
+  avail        Json?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
