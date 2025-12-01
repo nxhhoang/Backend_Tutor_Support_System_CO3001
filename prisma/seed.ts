@@ -105,6 +105,7 @@ const comments = [
 
 const sessionsData = [
   {
+    id: 1,
     programId: 101,
     tutorId: 2,
     studentId: 11,
@@ -117,6 +118,7 @@ const sessionsData = [
     confirmedAt: new Date('2025-10-26')
   },
   {
+    id: 2,
     programId: 102,
     tutorId: 2,
     studentId: 1,
@@ -128,6 +130,7 @@ const sessionsData = [
     createdAt: new Date('2025-10-27')
   },
   {
+    id: 3,
     programId: 103,
     tutorId: 4,
     studentId: 11,
@@ -138,6 +141,297 @@ const sessionsData = [
     subject: 'Mạng máy tính',
     createdAt: new Date('2025-10-10'),
     completedAt: new Date('2025-10-20')
+  },
+  {
+    id: 4,
+    programId: 104,
+    tutorId: 2,
+    studentId: 12,
+    mode: 'online',
+    location: 'https://zoom.us/j/1234567890',
+    time: new Date('2025-11-05T19:00:00'),
+    status: 'confirmed',
+    createdAt: new Date('2025-10-29'),
+    confirmedAt: new Date('2025-10-30'),
+    subject: 'Tiếng Anh giao tiếp'
+  },
+  {
+    id: 5,
+    programId: 105,
+    tutorId: 3,
+    studentId: 11,
+    mode: 'offline',
+    location: 'C6-202',
+    time: new Date('2025-11-10T08:00:00'),
+    status: 'pending',
+    createdAt: new Date('2025-10-28'),
+    subject: 'Vật lý đại cương'
+  },
+  {
+    id: 7,
+    programId: 107,
+    tutorId: 6,
+    studentId: 1,
+    mode: 'offline',
+    location: 'E2-104',
+    time: new Date('2025-11-12T13:30:00'),
+    status: 'confirmed',
+    createdAt: new Date('2025-10-29'),
+    confirmedAt: new Date('2025-10-30'),
+    subject: 'Nguyên lý máy học'
+  },
+  {
+    id: 8,
+    programId: 108,
+    tutorId: 2,
+    studentId: 1,
+    mode: 'offline',
+    location: 'A1-303',
+    time: new Date('2025-10-10T08:30:00'),
+    status: 'completed',
+    createdAt: new Date('2025-09-28'),
+    completedAt: new Date('2025-10-10'),
+    subject: 'Lập trình hướng đối tượng'
+  }
+]
+
+const summaries = [
+  {
+    semester: '2025A',
+    totalTutors: 15,
+    totalStudents: 120,
+    totalSessions: 340,
+    avgFeedbackScore: 4.6,
+    completionRate: 92
+  },
+  {
+    semester: '2024B',
+    totalTutors: 12,
+    totalStudents: 110,
+    totalSessions: 300,
+    avgFeedbackScore: 4.3,
+    completionRate: 87
+  }
+]
+
+const details = [
+  {
+    programId: 1,
+    programTitle: 'Kỹ năng học đại học',
+    programDesc: 'Hỗ trợ sinh viên năm nhất',
+    programCategory: 'Non-Academic',
+    programCapacity: 50,
+    programEnrolled: 45,
+    programSlots: 5,
+    programStatus: 'published',
+    tutorCount: 3,
+    menteeCount: 40,
+    avgScore: 4.7,
+    completedSessions: 20,
+    ongoingSessions: 3
+  },
+  {
+    programId: 2,
+    programTitle: 'Toán cao cấp A1',
+    programDesc: 'Hỗ trợ học tập chuyên sâu',
+    programCategory: 'Academic',
+    programCapacity: 30,
+    programEnrolled: 28,
+    programSlots: 2,
+    programStatus: 'published',
+    tutorCount: 2,
+    menteeCount: 28,
+    avgScore: 4.5,
+    completedSessions: 16,
+    ongoingSessions: 2
+  }
+]
+
+const tutorsData = [
+  {
+    id: 1,
+    name: 'ThS. Trần X',
+    major: 'Hệ điều hành',
+    rating: 4.8,
+    avail: JSON.stringify(['28/10 14:00', '29/10 10:00'])
+  },
+  {
+    id: 2,
+    name: 'PGS. Lê Y',
+    major: 'Cơ sở dữ liệu',
+    rating: 4.6,
+    avail: JSON.stringify(['30/10 09:00', '31/10 15:00'])
+  },
+  {
+    id: 3,
+    name: 'TS. Nguyễn Z',
+    major: 'Trí tuệ nhân tạo',
+    rating: 4.9,
+    avail: JSON.stringify(['02/11 08:00', '03/11 13:00'])
+  },
+  {
+    id: 4,
+    name: 'ThS. Phạm A',
+    major: 'Cấu trúc dữ liệu & Giải thuật',
+    rating: 4.7,
+    avail: JSON.stringify(['27/10 15:00', '29/10 09:00'])
+  },
+  {
+    id: 5,
+    name: 'TS. Bùi B',
+    major: 'Mạng máy tính',
+    rating: 4.5,
+    avail: JSON.stringify(['28/10 16:00', '30/10 11:00'])
+  },
+  {
+    id: 6,
+    name: 'ThS. Đỗ C',
+    major: 'Phân tích thiết kế hệ thống',
+    rating: 4.3,
+    avail: JSON.stringify(['01/11 10:00', '03/11 09:00'])
+  },
+  {
+    id: 7,
+    name: 'PGS. Nguyễn D',
+    major: 'An toàn thông tin',
+    rating: 4.9,
+    avail: JSON.stringify(['31/10 13:00', '01/11 14:30'])
+  },
+  {
+    id: 8,
+    name: 'TS. Lý E',
+    major: 'Học máy nâng cao',
+    rating: 4.8,
+    avail: JSON.stringify(['02/11 09:00', '03/11 15:00'])
+  },
+  {
+    id: 9,
+    name: 'TS. Đỗ Nam Châm',
+    major: 'Kỹ năng mềm',
+    rating: 5.0,
+    avail: JSON.stringify(['02/11 08:00', '03/11 14:00'])
+  },
+  {
+    id: 10,
+    name: 'ThS. Devon Larrat',
+    major: 'Kỹ năng sinh tồn',
+    rating: 4.5,
+    avail: JSON.stringify(['01/11 09:00', '01/11 14:00'])
+  }
+]
+
+const programsData = [
+  {
+    id: 101,
+    title: 'Hỗ trợ Lập trình C++ - Advanced',
+    code: 'CPLUS_ADV_101',
+    description: 'Chương trình hỗ trợ nâng cao kỹ năng lập trình C++...',
+    category: 'Academic',
+    field: 'Programming',
+    capacity: 30,
+    enrolledCount: 12,
+    availableSlots: 18,
+    startDate: '2025-11-01',
+    endDate: '2025-12-15',
+    status: 'published',
+    createdBy: 2,
+    tutors: [1, 3, 5]
+  },
+  {
+    id: 102,
+    title: 'Hệ thống Cơ sở Dữ liệu - Thực hành',
+    code: 'DB_LAB_102',
+    description: 'Thực hành thiết kế và tối ưu cơ sở dữ liệu...',
+    category: 'Academic',
+    field: 'Databases',
+    capacity: 25,
+    enrolledCount: 20,
+    availableSlots: 5,
+    startDate: '2025-11-05',
+    endDate: '2025-12-10',
+    status: 'published',
+    createdBy: 3,
+    tutors: [1]
+  },
+  {
+    id: 103,
+    title: 'An toàn thông tin cơ bản',
+    code: 'SEC_BASE_103',
+    description: 'Giới thiệu các khái niệm an toàn thông tin, thực hành pentest cơ bản.',
+    category: 'Academic',
+    field: 'Security',
+    capacity: 40,
+    enrolledCount: 35,
+    availableSlots: 5,
+    startDate: '2025-10-25',
+    endDate: '2025-11-30',
+    tutors: [6, 1],
+    status: 'published',
+    createdBy: 4
+  },
+  {
+    id: 104,
+    title: 'Workshop Mạng máy tính',
+    code: 'NET_WORK_104',
+    description: 'Tổng quan Mạng máy tính, cấu hình, thực hành lab.',
+    category: 'Academic',
+    field: 'Networking',
+    capacity: 20,
+    enrolledCount: 10,
+    availableSlots: 10,
+    startDate: '2025-11-02',
+    endDate: '2025-11-20',
+    tutors: [4],
+    status: 'published',
+    createdBy: 5
+  },
+  {
+    id: 105,
+    title: 'Trí tuệ nhân tạo cho sinh viên',
+    code: 'AI_FOR_STU_105',
+    description: 'Nhập môn AI: mô hình, học có giám sát, bài tập thực tế.',
+    category: 'Academic',
+    field: 'AI',
+    capacity: 50,
+    enrolledCount: 40,
+    availableSlots: 10,
+    startDate: '2025-11-10',
+    endDate: '2025-12-20',
+    tutors: [2, 7],
+    status: 'published',
+    createdBy: 6
+  },
+  {
+    id: 106,
+    title: 'Kỹ năng thuyết trình trước đám đông',
+    code: 'SKILL_FOR_STU_106',
+    description: 'Bài học hỗ trợ sinh viên vượt qua nỗi sợ thuyết trình trước đám đông, tạo sự tự tin cho sinh viên',
+    category: 'Non-Academic',
+    field: 'SoftSkill',
+    capacity: 50,
+    enrolledCount: 40,
+    availableSlots: 10,
+    startDate: '2025-11-10',
+    endDate: '2025-12-20',
+    tutors: [8, 9],
+    status: 'published',
+    createdBy: 6
+  },
+  {
+    id: 107,
+    title: 'Cách sinh tồn nơi hoang dã rừng núi',
+    code: 'SKILL_FOR_STU_107',
+    description: 'Khám phá hành trình phiêu lưu giữa rừng rậm hoang vu, vắng vẻ và hoang dại',
+    category: 'Non-Academic',
+    field: 'SoftSkill',
+    capacity: 50,
+    enrolledCount: 40,
+    availableSlots: 10,
+    startDate: '2025-12-10',
+    endDate: '2025-13-20',
+    tutors: [],
+    status: 'published',
+    createdBy: 6
   }
 ]
 
@@ -401,6 +695,38 @@ async function main() {
         }
       }
     }
+  })
+
+  await prisma.reportSummary.createMany({ data: summaries })
+  await prisma.detailedReport.createMany({ data: details })
+
+  for (const t of tutorsData) {
+    await prisma.academicTutor.upsert({
+      where: { id: t.id },
+      update: {},
+      create: t
+    })
+  }
+
+  for (const p of programsData) {
+    const { tutors, ...rest } = p
+    await prisma.academicProgram.upsert({
+      where: { id: p.id },
+      update: {},
+      create: {
+        ...rest,
+        tutors: {
+          connect: tutors.map(tid => ({ id: tid }))
+        }
+      }
+    })
+  }
+
+  await prisma.academicRegistration.createMany({
+    data: [
+      { id: 201, programId: 101, studentId: 1001, tutorId: 1, status: 'confirmed', registeredAt: new Date() },
+      { id: 202, programId: 102, studentId: 1002, status: 'pending', registeredAt: new Date() }
+    ]
   })
 }
 

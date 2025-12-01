@@ -194,3 +194,72 @@ model TutorFeedback {
   sessionId Int
   session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
+
+model ReportSummary {
+  id               Int     @id @default(autoincrement())
+  semester         String  // Ví dụ: '2025A'
+  totalTutors      Int
+  totalStudents    Int
+  totalSessions    Int
+  avgFeedbackScore Float
+  completionRate   Float
+}
+
+model DetailedReport {
+  id                Int     @id @default(autoincrement())
+  
+  programId         Int
+  programTitle      String
+  programDesc       String
+  programCategory   String
+  programCapacity   Int
+  programEnrolled   Int
+  programSlots      Int
+  programStatus     String
+
+  tutorCount        Int
+  menteeCount       Int
+  avgScore          Float
+  completedSessions Int
+  ongoingSessions   Int
+}
+
+model AcademicTutor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  major     String
+  rating    Float
+  avail     String   
+  
+  programs  AcademicProgram[]
+}
+
+model AcademicProgram {
+  id             Int      @id 
+  title          String
+  code           String
+  description    String
+  category       String
+  field          String
+  capacity       Int
+  enrolledCount  Int      @default(0)
+  availableSlots Int
+  startDate      String
+  endDate        String
+  status         String
+  createdBy      Int
+
+  tutors        AcademicTutor[]
+  registrations AcademicRegistration[]
+}
+
+model AcademicRegistration {
+  id           Int      @id @default(autoincrement())
+  studentId    Int
+  tutorId      Int?     
+  status       String   // 'pending' | 'confirmed'
+  registeredAt DateTime @default(now())
+
+  programId    Int
+  program      AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+}
