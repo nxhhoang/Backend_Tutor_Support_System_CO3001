@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import personalizeRouter from './routes/personalize.routes'
 import docsRouter from './routes/docs.routes'
@@ -11,6 +12,8 @@ import programRouter from './routes/program.routes'
 
 const app = express()
 app.use(express.json())
+
+app.use(cors())
 
 app.use('/personalize', personalizeRouter)
 app.use('/docs', docsRouter)

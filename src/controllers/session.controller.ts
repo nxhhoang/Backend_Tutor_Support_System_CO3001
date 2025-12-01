@@ -53,6 +53,16 @@ export const addTutorFeedbackController = async (req: Request, res: Response) =>
   }
 }
 
+export const createSessionController = async (req: Request, res: Response) => {
+  try {
+    const data = await sessionService.createSession(req.body)
+    res.status(201).json({ message: 'Tạo session thành công', data })
+  } catch (error) {
+    console.log(error)
+    res.status(HTTP_STATUS.BAD_REQUEST).json({ message: 'Lỗi khi tạo session' })
+  }
+}
+
 export const getFeedbacksController = async (req: Request, res: Response) => {
   const { id } = req.params
   const data = await sessionService.getFeedbacks(Number(id))

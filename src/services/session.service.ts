@@ -33,18 +33,32 @@ export const sessionService = {
   },
 
   async addStudentFeedback(sessionId: number, payload: any) {
-    const { ratingCriteria, ...rest } = payload
-
     return await prisma.sessionFeedback.create({
       data: {
         sessionId,
-        studentId: rest.studentId,
-        comment: rest.comment,
-        practicalRelevance: ratingCriteria?.practicalRelevance || 0,
-        knowledgeLoad: ratingCriteria?.knowledgeLoad || 0,
-        clarity: ratingCriteria?.clarity || 0,
-        enthusiasm: ratingCriteria?.enthusiasm || 0,
-        goalTransmission: ratingCriteria?.goalTransmission || 0
+        studentId: payload.studentId,
+        comment: payload.comment,
+        practicalRelevance: payload.practicalRelevance || 0,
+        knowledgeLoad: payload.knowledgeLoad || 0,
+        clarity: payload.clarity || 0,
+        enthusiasm: payload.enthusiasm || 0,
+        goalTransmission: payload.goalTransmission || 0
+      }
+    })
+  },
+
+  async createSession(payload: any) {
+    return await prisma.session.create({
+      data: {
+        programId: payload.programId,
+        tutorId: payload.tutorId,
+        studentId: payload.studentId,
+        mode: payload.mode, // 'online' | 'offline'
+        location: payload.location || '',
+        time: new Date(payload.time),
+        status: payload.status || 'confirm',
+        subject: payload.subject,
+        meetingReport: payload.meetingReport || null
       }
     })
   },
