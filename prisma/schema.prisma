@@ -104,3 +104,93 @@ model Profile {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model TutorWorkload {
+  id                Int      @id @default(autoincrement())
+  
+  tutorRefId        Int     
+  tutorName         String
+  tutorEmail        String
+  tutorRole         String
+  tutorMajor        String
+  tutorRating       Float
+
+  totalMentees      Int
+  maxMentees        Int
+  totalSessions     Int
+  completedSessions Int
+  totalHours        Int
+  avgCompletionRate Float
+}
+
+model Topic {
+  id        String    @id @default(cuid())
+  title     String
+  author    String    
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  author    String
+  level     Int      @default(0)
+  createdAt DateTime @default(now())
+  
+  topicId   String
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  parentId  String?
+  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id])
+  children  Comment[] @relation("ParentChild")
+}
+
+model Session {
+  id              Int      @id @default(autoincrement())
+  programId       Int
+  tutorId         Int
+  studentId       Int
+  mode            String   // 'online' | 'offline'
+  location        String
+  time            DateTime
+  status          String   // 'pending', 'confirmed', 'completed', 'cancelled'
+  subject         String
+  meetingReport   String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  confirmedAt     DateTime?
+  completedAt     DateTime?
+
+  feedbacks       SessionFeedback[]
+  tutorFeedbacks  TutorFeedback[]
+}
+
+model SessionFeedback {
+  id                 Int      @id @default(autoincrement())
+  studentId          Int
+  comment            String
+  createdAt          DateTime @default(now())
+  
+  practicalRelevance Int      @default(0)
+  knowledgeLoad      Int      @default(0)
+  clarity            Int      @default(0)
+  enthusiasm         Int      @default(0)
+  goalTransmission   Int      @default(0)
+
+  sessionId          Int
+  session            Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model TutorFeedback {
+  id        Int      @id @default(autoincrement())
+  tutorId   Int
+  studentId Int
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  sessionId Int
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}

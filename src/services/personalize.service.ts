@@ -1,4 +1,3 @@
-// src/services/personalize.service.ts
 import prisma from '~/services/prisma.service'
 
 export const personalizeService = {

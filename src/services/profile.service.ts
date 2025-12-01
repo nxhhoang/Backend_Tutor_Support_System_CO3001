@@ -1,4 +1,4 @@
-import prisma from './prisma.service' 
+import prisma from './prisma.service'
 import { Profile } from '@prisma/client'
 
 export const profileService = {
@@ -6,9 +6,11 @@ export const profileService = {
     return await prisma.profile.findMany()
   },
 
-  async getById(id: number) {
-    return await prisma.profile.findUnique({
-      where: { id }
+  async getByIds(ids: number[]) {
+    return await prisma.profile.findMany({
+      where: {
+        id: { in: ids }
+      }
     })
   },
 

@@ -22,7 +22,41 @@ export const profileController = {
     }
   },
 
-  
+  async getProfilesByIds(req: Request, res: Response) {
+    try {
+      const { ids } = req.query
+
+      if (!ids) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+          message: 'Thiếu danh sách id'
+        })
+      }
+
+      const idList = Array.isArray(ids) ? ids : [ids]
+      const parsedIds = idList.map((id) => Number(id)).filter((n) => !isNaN(n))
+
+      if (!parsedIds.length) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+          message: 'Danh sách id không hợp lệ'
+        })
+      }
+
+      const profiles = await profileService.getByIds(parsedIds)
+      const formattedProfiles = profiles.map((p) => ({
+        ...p,
+        skills: p.skills ?? [],
+        avail: p.avail ?? []
+      }))
+
+      return res.status(HTTP_STATUS.OK).json({
+        message: 'Lấy hồ sơ theo ID thành công',
+        data: formattedProfiles
+      })
+    } catch (error) {
+      console.error(error)
+      return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
+    }
+  },
 
   async searchProfiles(req: Request, res: Response) {
     const { q } = req.query

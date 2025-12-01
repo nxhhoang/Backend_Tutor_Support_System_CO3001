@@ -11,7 +11,7 @@ const profilesData = [
     class: 'KTMT2023',
     phone: '0901234567',
     supportNeeds: 'Cần hỗ trợ về Lập trình C++',
-    avail: ['Thứ 2 (9:00-11:00)', 'Thứ 5 (13:00-15:00)'],
+    avail: ['Thứ 2 (9:00-11:00)', 'Thứ 5 (13:00-15:00)']
   },
   {
     name: 'Trần Thị B',
@@ -36,6 +36,110 @@ const profilesData = [
   }
 ]
 
+const workloads = [
+  {
+    tutorRefId: 1,
+    tutorName: 'ThS. Nguyễn Văn A',
+    tutorEmail: 'vana@uit.edu.vn',
+    tutorRole: 'tutor',
+    tutorMajor: 'Khoa học Máy tính',
+    tutorRating: 4.7,
+    totalMentees: 8,
+    maxMentees: 10,
+    totalSessions: 20,
+    completedSessions: 16,
+    totalHours: 30,
+    avgCompletionRate: 80
+  },
+  {
+    tutorRefId: 2,
+    tutorName: 'ThS. Trần Thị B',
+    tutorEmail: 'thib@uit.edu.vn',
+    tutorRole: 'tutor',
+    tutorMajor: 'Kỹ thuật Phần mềm',
+    tutorRating: 4.5,
+    totalMentees: 5,
+    maxMentees: 10,
+    totalSessions: 14,
+    completedSessions: 12,
+    totalHours: 21,
+    avgCompletionRate: 86
+  }
+]
+
+const topics = [
+  {
+    id: 't1',
+    title: 'Hỏi về đề thực hành hệ điều hành',
+    author: 'An',
+    createdAt: new Date('2025-10-20')
+  },
+  {
+    id: 't2',
+    title: 'Tài liệu C++ nâng cao',
+    author: 'Bình',
+    createdAt: new Date('2025-10-21')
+  }
+]
+
+const comments = [
+  {
+    id: 'c1',
+    topicId: 't1',
+    author: 'Bình',
+    content: 'Bạn có thể xem slide tuần 6, phần semaphore nhé!',
+    createdAt: new Date('2025-10-21'),
+    level: 0,
+    parentId: null
+  },
+  {
+    id: 'c2',
+    topicId: 't1',
+    author: 'An',
+    content: 'Cảm ơn bạn nhiều nha!',
+    createdAt: new Date('2025-10-21'),
+    level: 1,
+    parentId: 'c1'
+  }
+]
+
+const sessionsData = [
+  {
+    programId: 101,
+    tutorId: 2,
+    studentId: 11,
+    mode: 'offline',
+    location: 'A4-501',
+    time: new Date('2025-11-01T14:00:00'),
+    status: 'confirmed',
+    subject: 'Toán cao cấp',
+    createdAt: new Date('2025-10-25'),
+    confirmedAt: new Date('2025-10-26')
+  },
+  {
+    programId: 102,
+    tutorId: 2,
+    studentId: 1,
+    mode: 'online',
+    location: 'https://meet.google.com/abc',
+    time: new Date('2025-11-03T09:00:00'),
+    status: 'pending',
+    subject: 'Cấu trúc dữ liệu',
+    createdAt: new Date('2025-10-27')
+  },
+  {
+    programId: 103,
+    tutorId: 4,
+    studentId: 11,
+    mode: 'offline',
+    location: 'B4-205',
+    time: new Date('2025-10-20T10:00:00'),
+    status: 'completed',
+    subject: 'Mạng máy tính',
+    createdAt: new Date('2025-10-10'),
+    completedAt: new Date('2025-10-20')
+  }
+]
 
 async function main() {
   await prisma.learningPreference.createMany({
@@ -250,8 +354,56 @@ async function main() {
   await prisma.profile.createMany({
     data: profilesData
   })
+
+  await prisma.tutorWorkload.createMany({
+    data: workloads
+  })
+
+  await prisma.topic.createMany({
+    data: topics
+  })
+
+  await prisma.comment.createMany({
+    data: comments
+  })
+
+  for (const s of sessionsData) {
+    await prisma.session.create({ data: s })
+  }
+
+  await prisma.session.create({
+    data: {
+      programId: 106,
+      tutorId: 2,
+      studentId: 1,
+      mode: 'online',
+      location: 'https://meet.google.com/xyz',
+      time: new Date('2025-10-15T15:00:00'),
+      status: 'completed',
+      subject: 'Phân tích thiết kế hệ thống',
+      feedbacks: {
+        create: {
+          studentId: 1,
+          comment: 'Buổi học ổn, có thể cải thiện phần trình bày ví dụ.',
+          practicalRelevance: 4,
+          knowledgeLoad: 4,
+          clarity: 4,
+          enthusiasm: 3,
+          goalTransmission: 5
+        }
+      },
+      tutorFeedbacks: {
+        create: {
+          tutorId: 2,
+          studentId: 1,
+          rating: 5,
+          comment: 'Sinh viên tiếp thu tốt.'
+        }
+      }
+    }
+  })
 }
 
 main()
-  .catch(e => console.error(e))
+  .catch((e) => console.error(e))
   .finally(() => prisma.$disconnect())
