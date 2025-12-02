@@ -1,4 +1,3 @@
-// src/middlewares/profile.middlewares.ts
 import { checkSchema } from 'express-validator'
 import { validate } from '../utils/validation'
 

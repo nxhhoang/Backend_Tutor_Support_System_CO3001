@@ -7,6 +7,7 @@ export const getTopicsController = async (req: Request, res: Response) => {
     const data = await topicService.getAll()
     res.status(HTTP_STATUS.OK).json({ data })
   } catch (error) {
+    console.log(error)
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
   }
 }
@@ -20,6 +21,7 @@ export const getTopicByIdController = async (req: Request, res: Response) => {
     }
     res.status(HTTP_STATUS.OK).json({ data: topic })
   } catch (error) {
+    console.log(error)
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
   }
 }
@@ -32,6 +34,7 @@ export const createTopicController = async (req: Request, res: Response) => {
       data: newTopic
     })
   } catch (error) {
+    console.log(error)
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
   }
 }

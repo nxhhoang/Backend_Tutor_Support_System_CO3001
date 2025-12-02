@@ -7,6 +7,7 @@ export const getAllWorkloadsController = async (req: Request, res: Response) => 
     const data = await workloadService.getAll()
     res.status(HTTP_STATUS.OK).json({data})
   } catch (error) {
+    console.log(error)
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
   }
 }
@@ -16,6 +17,7 @@ export const getWorkloadMetricsController = async (req: Request, res: Response) 
     const data = await workloadService.getMetrics()
     res.status(HTTP_STATUS.OK).json({data})
   } catch (error) {
+    console.log(error)
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Lỗi server' })
   }
 }
@@ -29,6 +31,7 @@ export const assignMenteeController = async (req: Request, res: Response) => {
       data: data 
     })
   } catch (error: any) {
+    console.log(error)
     res.status(HTTP_STATUS.BAD_REQUEST).json({ message: error.message })
   }
 }
